@@ -29,11 +29,9 @@ def parsing() -> (list[list[dict[str, str | int | float | list[int]]]], int):
     tree = request_to_html(req)
     table = tree.xpath('//table[@class = "top-ranking-table"]')[0]
     page_list = table.xpath('//tr[@class = "ranking-list"]')[:10]
-    i = 0
+    
     for page in page_list:
-        print(i)
-        i += 1
-        page_link = page.xpath('.//h3[@class = "hoverinfo_trigger fl-l fs14 fw-b anime_ranking_h3"]/a/@href')[0]
+        page_link = page.xpath('.//h3[@class = "fl-l fs14 fw-b anime_ranking_h3"]/a/@href')[0]
         url = str(page_link)
         req, exit_code = request(url)
         if exit_code != 200:
